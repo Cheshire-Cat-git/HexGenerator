@@ -11,6 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HexGenerator">
+        
+        <!-- Service provides the background generation logic -->
+        <service
+            android:name=".HexGeneratorService"
+            android:exported="true" />
+
+        <!-- CommandReceiver catches broadcasts from client_app and controls the service -->
+        <receiver
+            android:name=".CommandReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.hex_generator.SET_GENERATION_MODE" />
+                <action android:name="com.example.hex_generator.GET_STATUS" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -18,7 +34,6 @@
             android:theme="@style/Theme.HexGenerator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
